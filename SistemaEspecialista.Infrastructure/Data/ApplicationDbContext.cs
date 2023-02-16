@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SistemaEspecialista.Application.Interfaces.Services;
 using SistemaEspecialista.Domain.Entities;
 using SistemaEspecialista.Infrastructure.Interfaces;
@@ -13,17 +14,16 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     private readonly User _currentUser;
     private readonly IIdentityService _identityService;
+    private readonly IConfiguration _configuration;
 
-    public ApplicationDbContext(IIdentityService identityService)
+    public ApplicationDbContext(IIdentityService identityService, IConfiguration configuration)
     {
         _identityService = identityService;
         _currentUser = _identityService.GetCurrentUser();
+        _configuration = configuration;
     }
 
-    public void Dispose()
-    {
-        throw new NotImplementedException();
-    }
+    public void Dispose() => base.Dispose();
 
     public override Task<int> SaveChangesAsync(
                CancellationToken cancellationToken = new CancellationToken())
@@ -46,8 +46,13 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         return base.SaveChangesAsync(cancellationToken);
     }
 
-    public DbSet<TEntity> Set<TEntity>() where TEntity : Entity
+    public new DbSet<TEntity> Set<TEntity>() where TEntity : Entity
     {
-        throw new NotImplementedException();
+        return base.Set<TEntity>();
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        options.UseMySql(_configuration.GetConnectionString("ApplicationDatabase"), ServerVersion.AutoDetect(_configuration.GetConnectionString("ApplicationDatabase")));
     }
 }

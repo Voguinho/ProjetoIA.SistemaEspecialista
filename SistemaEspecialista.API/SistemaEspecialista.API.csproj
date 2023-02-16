@@ -14,4 +14,10 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaEspecialista.Application\SistemaEspecialista.Application.csproj" />
+    <ProjectReference Include="..\SistemaEspecialista.Domain\SistemaEspecialista.Domain.csproj" />
+    <ProjectReference Include="..\SistemaEspecialista.Infrastructure\SistemaEspecialista.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
