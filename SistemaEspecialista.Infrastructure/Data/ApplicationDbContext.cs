@@ -12,15 +12,24 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Objective> Objectives { get; set; }
     public DbSet<Characteristic> Characteristics { get; set; }
 
+<<<<<<< HEAD
     public ApplicationDbContext()
     {
        
+=======
+    private readonly User _currentUser;
+    private readonly IIdentityService _identityService;
+    private readonly IConfiguration _configuration;
+
+    public ApplicationDbContext(IIdentityService identityService, IConfiguration configuration)
+    {
+        _identityService = identityService;
+        _currentUser = _identityService.GetCurrentUser();
+        _configuration = configuration;
+>>>>>>> 036467759c8d5552bc628ac9f89d023a2d75a419
     }
 
-    public void Dispose()
-    {
-        throw new NotImplementedException();
-    }
+    public void Dispose() => base.Dispose();
 
     public override Task<int> SaveChangesAsync(
                CancellationToken cancellationToken = new CancellationToken())
@@ -41,8 +50,14 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         return base.SaveChangesAsync(cancellationToken);
     }
 
-    public DbSet<TEntity> Set<TEntity>() where TEntity : Entity
+    public new DbSet<TEntity> Set<TEntity>() where TEntity : Entity
     {
+        return base.Set<TEntity>();
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+<<<<<<< HEAD
         return base.Set<TEntity>();
     }
     protected override void OnModelCreating(ModelBuilder builder)
@@ -51,6 +66,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         builder.Entity<Objective>().HasKey(m => m.Id);
         builder.Entity<Characteristic>().HasKey(m => m.Id);
         base.OnModelCreating(builder);
+=======
+        options.UseMySql(_configuration.GetConnectionString("ApplicationDatabase"), ServerVersion.AutoDetect(_configuration.GetConnectionString("ApplicationDatabase")));
+>>>>>>> 036467759c8d5552bc628ac9f89d023a2d75a419
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
