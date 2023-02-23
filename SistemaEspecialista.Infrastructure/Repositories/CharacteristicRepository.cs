@@ -4,7 +4,7 @@ using SistemaEspecialista.Infrastructure.Interfaces;
 
 namespace SistemaEspecialista.Infrastructure.Repositories;
 
-public class CharacteristicRepository : Repository<User>, ICharacteristicsRepository
+public class CharacteristicRepository : Repository<Characteristic>, ICharacteristicsRepository
 {
     public CharacteristicRepository(IApplicationDbContext dbContext) : base(dbContext)
     {

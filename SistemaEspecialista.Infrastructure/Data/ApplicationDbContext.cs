@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SistemaEspecialista.Application.Interfaces.Services;
 using SistemaEspecialista.Domain.Entities;
 using SistemaEspecialista.Infrastructure.Interfaces;
@@ -11,13 +12,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Objective> Objectives { get; set; }
     public DbSet<Characteristic> Characteristics { get; set; }
 
-    private readonly User _currentUser;
-    private readonly IIdentityService _identityService;
-
-    public ApplicationDbContext(IIdentityService identityService)
+    public ApplicationDbContext()
     {
-        _identityService = identityService;
-        _currentUser = _identityService.GetCurrentUser();
+       
     }
 
     public void Dispose()
@@ -33,11 +30,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             switch (entry.State)
             {
                 case EntityState.Added:
-                    entry.Entity.CreatedBy = _currentUser.Email;
                     entry.Entity.CreatedAt = DateTime.Now;
                     break;
                 case EntityState.Modified:
-                    entry.Entity.UpdatedBy = _currentUser.Email;
                     entry.Entity.UpdatedAt = DateTime.Now;
                     break;
             }
@@ -48,6 +43,20 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<TEntity> Set<TEntity>() where TEntity : Entity
     {
-        throw new NotImplementedException();
+        return base.Set<TEntity>();
     }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Entity<Project>().HasKey(m => m.Id);
+        builder.Entity<Objective>().HasKey(m => m.Id);
+        builder.Entity<Characteristic>().HasKey(m => m.Id);
+        base.OnModelCreating(builder);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        // connect to sqlite database
+        options.UseSqlite(DbConfig.ConnectionString);
+    }
+
 }

@@ -2,5 +2,8 @@
 
 public class Project : Entity
 {
-    public int UserId { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+
+    public List<Objective> Objectives { get; set; } = new();
 }

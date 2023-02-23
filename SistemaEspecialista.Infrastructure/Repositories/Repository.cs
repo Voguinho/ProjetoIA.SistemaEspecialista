@@ -16,6 +16,12 @@ public abstract class Repository<TEntity> where TEntity : Entity
         EntityDbSet = DbContext.Set<TEntity>();
     }
 
+    /// <summary>
+    /// Search for a collection of items of Type TEntity based on a lambda expression to filter and a cancellation token
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>A Task of type IEnumerable of TEntity</returns>
     public virtual async Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
     {
         return await EntityDbSet.AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
