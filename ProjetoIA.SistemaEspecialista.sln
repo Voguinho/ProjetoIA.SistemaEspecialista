@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaEspecialista.Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaEspecialista.Application", "SistemaEspecialista.Application\SistemaEspecialista.Application.csproj", "{1CF84E62-6000-4EB6-9D32-D498414563C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaEspecialista.DesktopUI", "SistemaEspecialista.DesktopView\SistemaEspecialista.DesktopUI.csproj", "{9ED192A6-9F37-4661-8C6E-0B0F3F208135}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaEspecialista.DesktopUI", "SistemaEspecialista.DesktopUI\SistemaEspecialista.DesktopUI.csproj", "{CFA8E31C-52C7-46DF-B9BD-45C2D60F6853}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		{1CF84E62-6000-4EB6-9D32-D498414563C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CF84E62-6000-4EB6-9D32-D498414563C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CF84E62-6000-4EB6-9D32-D498414563C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9ED192A6-9F37-4661-8C6E-0B0F3F208135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9ED192A6-9F37-4661-8C6E-0B0F3F208135}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9ED192A6-9F37-4661-8C6E-0B0F3F208135}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9ED192A6-9F37-4661-8C6E-0B0F3F208135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFA8E31C-52C7-46DF-B9BD-45C2D60F6853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA8E31C-52C7-46DF-B9BD-45C2D60F6853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA8E31C-52C7-46DF-B9BD-45C2D60F6853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA8E31C-52C7-46DF-B9BD-45C2D60F6853}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,7 +43,7 @@ Global
 		{E075532F-F86F-4218-8D3B-8D79212DE313} = {B6447F6D-CA72-4323-AEB1-9F069C597634}
 		{7D7721D5-9F25-4866-BDAF-D618169363E8} = {B6447F6D-CA72-4323-AEB1-9F069C597634}
 		{1CF84E62-6000-4EB6-9D32-D498414563C5} = {B6447F6D-CA72-4323-AEB1-9F069C597634}
-		{9ED192A6-9F37-4661-8C6E-0B0F3F208135} = {B6447F6D-CA72-4323-AEB1-9F069C597634}
+		{CFA8E31C-52C7-46DF-B9BD-45C2D60F6853} = {B6447F6D-CA72-4323-AEB1-9F069C597634}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3355E4D3-8234-4577-B4B6-FDAE56580ED3}
