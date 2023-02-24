@@ -17,26 +17,29 @@ public partial class MainForm : Form
         InitializeComponent();
     }
 
-    private void newToolStripMenuItem_Click(object sender, EventArgs e)
+    private async void newToolStripMenuItem_Click(object sender, EventArgs e)
     {
         LoadedProject = new Project();
-
+        var result = await _projectRepository.Add(LoadedProject, CancellationToken.None);
     }
 
     private async void editToolStripMenuItem_Click(object sender, EventArgs e)
     {
-
+        LoadedProject = (await _projectRepository.GetAll(CancellationToken.None)).FirstOrDefault();
     }
 
-    private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+    private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (LoadedProject.Id != DefaultValues.IdNullValue)
+        if (LoadedProject is not null)
         {
-            var result = _projectRepository.Add(LoadedProject, CancellationToken.None);
-        }
-        else
-        {
-            var result = _projectRepository.Update(LoadedProject);
+            if (LoadedProject.Id == DefaultValues.IdNullValue)
+            {
+                var result = await _projectRepository.Add(LoadedProject, CancellationToken.None);
+            }
+            else
+            {
+                var result = await _projectRepository.Update(LoadedProject);
+            }
         }
     }
 }

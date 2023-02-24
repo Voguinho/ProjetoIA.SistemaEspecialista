@@ -27,28 +27,55 @@ public abstract class Repository<TEntity> where TEntity : Entity
         return await EntityDbSet.AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public virtual async Task<TEntity> GetById(int id, CancellationToken cancellationToken)
     {
         return await EntityDbSet.FindAsync(new object[] { id }, cancellationToken);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public virtual async Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken)
     {
         return await EntityDbSet.ToListAsync(cancellationToken);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public virtual async Task<TEntity> Add(TEntity entity, CancellationToken cancellationToken)
     {
         await EntityDbSet.AddAsync(entity, cancellationToken);
         return entity;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
     public virtual async Task<TEntity> Update(TEntity entity)
     {
         await Task.FromResult(EntityDbSet.Update(entity));
         return entity;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
     public virtual async Task<TEntity> Remove(TEntity entity)
     {
         await Task.FromResult(EntityDbSet.Remove(entity));

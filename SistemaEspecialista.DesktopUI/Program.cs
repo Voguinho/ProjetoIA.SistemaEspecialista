@@ -11,9 +11,7 @@ internal static class Program
     static void ConfigureServices()
     {
         var services = new ServiceCollection();
-
         services.AddInfrastructure();
-
         ServiceProvider = services.BuildServiceProvider();
     }
 
