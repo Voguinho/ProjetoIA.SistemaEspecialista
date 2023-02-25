@@ -10,12 +10,23 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Objective> Objectives { get; set; }
     public DbSet<Characteristic> Characteristics { get; set; }
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+    public ApplicationDbContext() 
+    {
+        Database.EnsureCreated();
+    }
 
-    public void Dispose() => base.Dispose();
-
+    /// <summary>
+    /// Gets the TEntity DbSet.
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <returns>DbSet of type TEntity </returns>
     public new DbSet<TEntity> Set<TEntity>() where TEntity : Entity => base.Set<TEntity>();
 
+    /// <summary>
+    /// Alter the CreatedAt or Updated of the Entities depending on the action and commit the changes to the database.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         foreach (var entry in ChangeTracker.Entries<Entity>())
@@ -32,5 +43,11 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         }
 
         return base.SaveChangesAsync(cancellationToken);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        // connect to sqlite database
+        options.UseSqlite(DbConfig.ConnectionString);
     }
 }

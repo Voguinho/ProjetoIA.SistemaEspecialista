@@ -15,8 +15,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IProjectRepository, ProjectRepository>();
         services.AddSingleton<IObjectiveRepository, ObjectiveRepository>();
         services.AddSingleton<ICharacteristicsRepository, CharacteristicRepository>();
-        services.AddDbContext<ApplicationDbContext>( options => { options.UseSqlite(DbConfig.ConnectionString); });
-        services.AddSingleton<IApplicationDbContext, ApplicationDbContext>();
+        services.AddDbContext<ApplicationDbContext>();
         return services;
     }
 }

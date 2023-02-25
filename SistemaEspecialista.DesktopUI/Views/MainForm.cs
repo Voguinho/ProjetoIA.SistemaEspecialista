@@ -19,7 +19,7 @@ public partial class MainForm : Form
 
     private async void newToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        LoadedProject = new Project();
+        LoadedProject = new Project { Description = "Teste", Name ="Nome teste"};
         var result = await _projectRepository.Add(LoadedProject, CancellationToken.None);
     }
 

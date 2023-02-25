@@ -9,7 +9,7 @@ public interface ICharacteristicsRepository
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns>A Task of type IEnumerable of Characteristic</returns>
-    public Task<IEnumerable<Characteristic>> GetAll(CancellationToken token);
+    public Task<IEnumerable<Characteristic>> GetAll(CancellationToken cancellationToken);
     /// <summary>
     /// Get a characteristic by Id
     /// </summary>

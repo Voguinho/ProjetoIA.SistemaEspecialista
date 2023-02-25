@@ -9,7 +9,7 @@ public interface IObjectiveRepository
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns>A Task of type IEnumerable of Objective</returns>
-    public Task<IEnumerable<Objective>> GetAll(CancellationToken token);
+    public Task<IEnumerable<Objective>> GetAll(CancellationToken cancellationToken);
     /// <summary>
     /// Get a objective by Id
     /// </summary>
