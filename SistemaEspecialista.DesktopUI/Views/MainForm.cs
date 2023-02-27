@@ -25,7 +25,8 @@ public partial class MainForm : Form
 
     private async void editToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        LoadedProject = (await _projectRepository.GetAll(CancellationToken.None)).FirstOrDefault();
+        var project = (await _projectRepository.GetAll(CancellationToken.None)).FirstOrDefault();
+        LoadedProject = project;
     }
 
     private async void saveToolStripMenuItem_Click(object sender, EventArgs e)

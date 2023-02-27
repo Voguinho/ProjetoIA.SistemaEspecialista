@@ -6,19 +6,35 @@ namespace SistemaEspecialista.Infrastructure.Interfaces;
 public interface IApplicationDbContext
 {
     /// <summary>
-    /// Projecst DbSet (Projects Table).
+    /// Projects DbSet (Projects Table).
     /// </summary>
     public DbSet<Project> Projects { get; set; }
 
     /// <summary>
-    /// Projecst DbSet (Objectives Table).
+    /// Objectives DbSet (Objectives Table).
     /// </summary>
     public DbSet<Objective> Objectives { get; set; }
 
     /// <summary>
-    /// Projecst DbSet (Characteristics Table).
+    /// Characteristics DbSet (Characteristics Table).
     /// </summary>
     public DbSet<Characteristic> Characteristics { get; set; }
+
+    /// <summary>
+    /// ObjectiveCharacteristics DbSet (ObjectiveCharacteristics Table).
+    /// </summary>
+   
+    public DbSet<ObjectiveCharacteristic> ObjectiveCharacteristics { get; set; }
+    /// <summary>
+    /// Questions DbSet (Questions Table).
+    /// </summary>
+    
+    public DbSet<Question> Questions { get; set; }
+    
+    /// <summary>
+    /// Logs DbSet (Logs Table).
+    /// </summary>
+    public DbSet<Log> Logs { get; set; }
 
     /// <summary>
     /// Alter the CreatedAt or Updated of the Entities depending on the action and commit the changes to the database.

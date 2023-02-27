@@ -9,6 +9,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Project> Projects { get; set; }
     public DbSet<Objective> Objectives { get; set; }
     public DbSet<Characteristic> Characteristics { get; set; }
+    public DbSet<ObjectiveCharacteristic> ObjectiveCharacteristics { get; set; }
+    public DbSet<Question> Questions { get; set; }
+    public DbSet<Log> Logs { get; set; }
 
     public ApplicationDbContext() 
     {
