@@ -26,11 +26,17 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ObjectiveId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
@@ -79,6 +85,12 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
@@ -114,6 +126,10 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CharacteristicId");
+
+                    b.HasIndex("ObjectiveId");
 
                     b.HasIndex("ProjectId");
 
@@ -156,7 +172,6 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ProjectId")
@@ -169,6 +184,9 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CharacteristicId")
+                        .IsUnique();
 
                     b.HasIndex("ProjectId");
 
@@ -204,19 +222,49 @@ namespace SistemaEspecialista.Infrastructure.Migrations
 
             modelBuilder.Entity("SistemaEspecialista.Domain.Entities.ObjectiveCharacteristic", b =>
                 {
+                    b.HasOne("SistemaEspecialista.Domain.Entities.Characteristic", "Characteristic")
+                        .WithMany()
+                        .HasForeignKey("CharacteristicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaEspecialista.Domain.Entities.Objective", "Objective")
+                        .WithMany()
+                        .HasForeignKey("ObjectiveId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SistemaEspecialista.Domain.Entities.Project", null)
                         .WithMany("ObjectiveCharacteristics")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Characteristic");
+
+                    b.Navigation("Objective");
                 });
 
             modelBuilder.Entity("SistemaEspecialista.Domain.Entities.Question", b =>
                 {
+                    b.HasOne("SistemaEspecialista.Domain.Entities.Characteristic", "Characteristic")
+                        .WithOne("Question")
+                        .HasForeignKey("SistemaEspecialista.Domain.Entities.Question", "CharacteristicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SistemaEspecialista.Domain.Entities.Project", null)
                         .WithMany("Questions")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Characteristic");
+                });
+
+            modelBuilder.Entity("SistemaEspecialista.Domain.Entities.Characteristic", b =>
+                {
+                    b.Navigation("Question")
                         .IsRequired();
                 });
 

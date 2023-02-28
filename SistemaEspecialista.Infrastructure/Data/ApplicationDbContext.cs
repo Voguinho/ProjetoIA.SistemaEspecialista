@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using SistemaEspecialista.Domain.Entities;
 using SistemaEspecialista.Infrastructure.Interfaces;
 
@@ -12,10 +13,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<ObjectiveCharacteristic> ObjectiveCharacteristics { get; set; }
     public DbSet<Question> Questions { get; set; }
     public DbSet<Log> Logs { get; set; }
+    public override DatabaseFacade? Database => base.Database;
 
     public ApplicationDbContext() 
     {
-        Database.EnsureCreated();
+        if (Database.GetPendingMigrations().Any())
+            Database.Migrate();
     }
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SistemaEspecialista.Infrastructure.Extensions;
 
-namespace SistemaEspecialista.Infrastructure.Test.Utils;
+namespace SistemaEspecialista.Infrastructure.Utils;
 
 public static class ServiceProviderUtils
 {

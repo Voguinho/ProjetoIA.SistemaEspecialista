@@ -34,7 +34,9 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ObjectiveId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Status = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
@@ -73,35 +75,14 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ObjectiveCharacteristics",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CharacteristicId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ObjectiveId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ObjectiveCharacteristics", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ObjectiveCharacteristics_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Objectives",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
@@ -125,7 +106,7 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false),
                     CharacteristicId = table.Column<int>(type: "INTEGER", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
@@ -133,7 +114,48 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Questions", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Questions_Characteristics_CharacteristicId",
+                        column: x => x.CharacteristicId,
+                        principalTable: "Characteristics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Questions_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ObjectiveCharacteristics",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CharacteristicId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ObjectiveId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ObjectiveCharacteristics", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ObjectiveCharacteristics_Characteristics_CharacteristicId",
+                        column: x => x.CharacteristicId,
+                        principalTable: "Characteristics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ObjectiveCharacteristics_Objectives_ObjectiveId",
+                        column: x => x.ObjectiveId,
+                        principalTable: "Objectives",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ObjectiveCharacteristics_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
@@ -151,6 +173,16 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ObjectiveCharacteristics_CharacteristicId",
+                table: "ObjectiveCharacteristics",
+                column: "CharacteristicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ObjectiveCharacteristics_ObjectiveId",
+                table: "ObjectiveCharacteristics",
+                column: "ObjectiveId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ObjectiveCharacteristics_ProjectId",
                 table: "ObjectiveCharacteristics",
                 column: "ProjectId");
@@ -159,6 +191,12 @@ namespace SistemaEspecialista.Infrastructure.Migrations
                 name: "IX_Objectives_ProjectId",
                 table: "Objectives",
                 column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Questions_CharacteristicId",
+                table: "Questions",
+                column: "CharacteristicId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Questions_ProjectId",
@@ -170,19 +208,19 @@ namespace SistemaEspecialista.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Characteristics");
-
-            migrationBuilder.DropTable(
                 name: "Logs");
 
             migrationBuilder.DropTable(
                 name: "ObjectiveCharacteristics");
 
             migrationBuilder.DropTable(
+                name: "Questions");
+
+            migrationBuilder.DropTable(
                 name: "Objectives");
 
             migrationBuilder.DropTable(
-                name: "Questions");
+                name: "Characteristics");
 
             migrationBuilder.DropTable(
                 name: "Projects");

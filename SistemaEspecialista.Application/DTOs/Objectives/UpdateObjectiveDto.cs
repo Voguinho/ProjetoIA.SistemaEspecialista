@@ -1,5 +1,8 @@
-﻿namespace SistemaEspecialista.Application.DTOs.Objectives;
+﻿using SistemaEspecialista.Application.Common.Mapping;
+using SistemaEspecialista.Domain.Entities;
 
-public class UpdateObjectiveDto
+namespace SistemaEspecialista.Application.DTOs.Objectives;
+
+public record UpdateObjectiveDto : IMapFrom<Objective>
 {
 }

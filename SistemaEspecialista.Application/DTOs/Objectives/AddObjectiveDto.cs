@@ -1,5 +1,8 @@
-﻿namespace SistemaEspecialista.Application.DTOs.Objectives;
+﻿using SistemaEspecialista.Application.Common.Mapping;
+using SistemaEspecialista.Domain.Entities;
 
-public class AddObjectiveDto
+namespace SistemaEspecialista.Application.DTOs.Objectives;
+
+public record AddObjectiveDto : IMapFrom<Objective>
 {
 }

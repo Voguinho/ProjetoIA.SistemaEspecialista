@@ -4,6 +4,7 @@ using SistemaEspecialista.Application.Interfaces.Repositories;
 using SistemaEspecialista.Infrastructure.Data;
 using SistemaEspecialista.Infrastructure.Interfaces;
 using SistemaEspecialista.Infrastructure.Repositories;
+using SistemaEspecialista.Infrastructure.Utils;
 
 namespace SistemaEspecialista.Infrastructure.Extensions;
 
@@ -16,9 +17,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IObjectiveRepository, ObjectiveRepository>();
         services.AddSingleton<ICharacteristicsRepository, CharacteristicRepository>();
         services.AddDbContext<ApplicationDbContext>();
-
-        
-
         return services;
     }
 }

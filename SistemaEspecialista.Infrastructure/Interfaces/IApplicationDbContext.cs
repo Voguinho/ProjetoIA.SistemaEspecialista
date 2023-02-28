@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using SistemaEspecialista.Domain.Entities;
 
 namespace SistemaEspecialista.Infrastructure.Interfaces;
@@ -49,4 +50,11 @@ public interface IApplicationDbContext
     /// <typeparam name="TEntity"></typeparam>
     /// <returns>DbSet of type TEntity </returns>
     DbSet<TEntity> Set<TEntity>() where TEntity : Entity;
+
+    /// <summary>
+    /// Gets the DatabaseFacade.
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <returns>DatabaseFacade</returns>
+    public DatabaseFacade? Database { get; }
 }

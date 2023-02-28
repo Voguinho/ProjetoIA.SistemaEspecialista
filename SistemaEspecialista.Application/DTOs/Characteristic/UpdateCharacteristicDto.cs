@@ -1,5 +1,8 @@
-﻿namespace SistemaEspecialista.Application.DTOs.Characteristic;
+﻿using SistemaEspecialista.Application.Common.Mapping;
+using SistemaEspecialista.Domain.Entities;
 
-public class UpdateCharacteristicDto
+namespace SistemaEspecialista.Application.DTOs.Characteristics;
+
+public record UpdateCharacteristicDto : IMapFrom<Characteristic>
 {
 }
