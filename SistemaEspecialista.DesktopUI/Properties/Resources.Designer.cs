@@ -83,6 +83,16 @@ namespace SistemaEspecialista.DesktopUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap delete_icon_shallow {
+            get {
+                object obj = ResourceManager.GetObject("delete_icon_shallow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap description_icon_shallow {
             get {
                 object obj = ResourceManager.GetObject("description_icon_shallow", resourceCulture);
@@ -146,6 +156,16 @@ namespace SistemaEspecialista.DesktopUI.Properties {
         internal static System.Drawing.Bitmap question_mark_icon_shallow {
             get {
                 object obj = ResourceManager.GetObject("question_mark_icon_shallow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap refresh_icon_shallow {
+            get {
+                object obj = ResourceManager.GetObject("refresh_icon_shallow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -1,5 +1,6 @@
 ﻿using SistemaEspecialista.Application.Interfaces.Engines;
 using SistemaEspecialista.Application.Interfaces.Repositories;
+using SistemaEspecialista.Domain.Entities;
 
 namespace SistemaEspecialista.Infrastructure.Engines;
 
@@ -23,5 +24,15 @@ public class InferenceEngine : IInferenceEngine
         _characteristicsRepository = characteristicsRepository;
         _objectiveCharacteristicRepository = objectiveCharacteristicRepository;
         _logRepository = logRepository;
+    }
+
+    public Task<Objective> Evaluate(List<Characteristic> characteristics)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<Characteristic>> GetCharacteristicsByObjectives(List<Objective> objectives)
+    {
+        throw new NotImplementedException();
     }
 }

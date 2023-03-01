@@ -9,21 +9,30 @@ namespace SistemaEspecialista.Infrastructure.Test.Repositories;
 public class ObjectiveRepositoryTest
 {
     private readonly IObjectiveRepository _objectiveRepository;
+    private readonly IProjectRepository _projectRepository;
     private int? _objectiveId;
 
     public ObjectiveRepositoryTest()
     {
         _objectiveRepository = ServiceProviderUtils.GetService<IObjectiveRepository>();
+        _projectRepository = ServiceProviderUtils.GetService<IProjectRepository>();
     }
 
     [Test]
     public void Add_Should_Return_Objective_With_Valid_Id()
     {
-        var ObjectiveToAdd = new Objective { Id = 0, Name = "Test Objective 1", Description = " Test" };
+        var project = (_projectRepository.GetAll(CancellationToken.None).Result).FirstOrDefault();
+        if (project == null)
+            project = _projectRepository.Add(new Project { Name = "Projeto teste Objective", Description = "Projeto teste Objective" }, CancellationToken.None).Result;
+
+        var ObjectiveToAdd = new Objective { Id = 0, ProjectId = project.Id, Name = "Test Objective 1", Description = " Test" };
         var result = _objectiveRepository.Add(ObjectiveToAdd, CancellationToken.None).Result;
 
         _objectiveId = result.Id;
         Assert.IsTrue(result.Id != DefaultValues.IdNullValue && result.CreatedAt is not null);
+
+        _projectRepository.Remove(project);
+        _objectiveRepository.Remove(ObjectiveToAdd);
     }
 
     [Test]
@@ -34,19 +43,18 @@ public class ObjectiveRepositoryTest
     }
 
     [Test]
-    public void Update_Should_Return_Objective_With_The_Updated_Field()
+    public async Task Update_Should_Return_Objective_With_The_Updated_Field()
     {
-        var Objective = _objectiveRepository.GetById(_objectiveId ?? 1, CancellationToken.None).Result;
+        var project = await _projectRepository.Add(new Project { Name = "Projeto teste Objective", Description = "Projeto teste Objective" }, CancellationToken.None);
+        var objective = await _objectiveRepository.Add(new Objective { Id = 0, ProjectId = project.Id, Name = "Test Objective 1", Description = " Test" }, CancellationToken.None);
 
-        if (Objective is null)
-            Assert.Ignore($"não foi encontrado o registro de ID: {_objectiveId ?? 1} para atualizar.");
+        objective.Name = "Test Objective 1 UPDATED";
+        objective.Description = " Test UPDATED";
 
-        Objective.Name = "Test Objective 1 UPDATED";
-        Objective.Description = " Test UPDATED";
+        var ObjectiveResult = _objectiveRepository.Update(objective).Result;
+        Assert.IsTrue(ObjectiveResult.UpdatedAt.HasValue && objective.Name == "Test Objective 1 UPDATED");
 
-        var ObjectiveResult = _objectiveRepository.Update(Objective).Result;
-
-        Assert.IsTrue(ObjectiveResult.UpdatedAt.HasValue && Objective.Name == "Test Objective 1 UPDATED");
+        var removedProject = _projectRepository.Remove(project).Result;
     }
 
     [Test]
@@ -58,13 +66,13 @@ public class ObjectiveRepositoryTest
     }
 
     [Test]
-    public void Remove_Should_Return_Objective()
+    public async Task Remove_Should_Return_Objective()
     {
-        var Objective = _objectiveRepository.GetById(_objectiveId ?? 1, CancellationToken.None).Result;
-        if (Objective is null)
-            Assert.Ignore($"não foi encontrado o registro de ID: {_objectiveId ?? 1} para remover.");
+        var project = await _projectRepository.Add(new Project { Name = "Projeto teste Objective", Description = "Projeto teste Objective" }, CancellationToken.None);
+        var objective = await  _objectiveRepository.Add(new Objective { Id = 0, ProjectId = project.Id, Name = "Test Objective 1", Description = " Test" }, CancellationToken.None);
 
-        var removedObjective = _objectiveRepository.Remove(Objective).Result;
+        var removedObjective = _objectiveRepository.Remove(objective).Result;
+        var removedProject = _projectRepository.Remove(project).Result;
         Assert.IsNotNull(removedObjective);
     }
 }

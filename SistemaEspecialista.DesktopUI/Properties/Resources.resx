@@ -124,6 +124,9 @@
   <data name="code_icon_shallow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\code_icon_shallow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="delete_icon_shallow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete_icon_shallow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="description_icon_shallow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\description_icon_shallow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,6 +147,9 @@
   </data>
   <data name="question_mark_icon_shallow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\question_mark_icon_shallow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="refresh_icon_shallow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\refresh_icon_shallow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="save_icon_shallow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save_icon_shallow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
