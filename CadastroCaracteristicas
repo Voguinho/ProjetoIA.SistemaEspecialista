@@ -1,0 +1,34 @@
+public partial class CadastroCaracteristicasForm : Form
+{
+    public CadastroCaracteristicasForm()
+    {
+        InitializeComponent();
+    }
+
+    private void SalvarButton_Click(object sender, EventArgs e)
+    {
+        if (ValidarCampos())
+        {
+            // salvar as características no banco de dados ou arquivo local
+            MessageBox.Show("Características salvas com sucesso!");
+        }
+        else
+        {
+            MessageBox.Show("Por favor, preencha todos os campos.");
+        }
+    }
+
+    private bool ValidarCampos()
+    {
+        bool camposPreenchidos = true;
+        foreach (Control control in Controls)
+        {
+            if (control is TextBox && string.IsNullOrEmpty(control.Text))
+            {
+                camposPreenchidos = false;
+                break;
+            }
+        }
+        return camposPreenchidos;
+    }
+}
